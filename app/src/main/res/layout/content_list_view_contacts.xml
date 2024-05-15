@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/nav_layout"
+        android:background="@drawable/dark_mode_btn_active"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/section_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Контакты"
+                android:textSize="45sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/content_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Локация"
+                android:textSize="35sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="15dp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/content_item_1.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="РУТ МИИТ, Россия, г.Москва, ул.Образцова, стр. 9"
+                android:textSize="21sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="35dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/content_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telegram / Whatsapp"
+                android:textSize="30sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="15dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8 (987) 575-45-70"
+                android:textSize="23sp"
+                android:textColor="#FFA500"
+                android:layout_marginBottom="35dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="32sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aiser@mail.ru"
+                android:textSize="20sp"
+                android:textColor="#FFA500"
+                android:layout_marginBottom="25dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Разработали"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Velkorra, Sooty, Aiser, Капитолина, 14 dayys"
+                android:textSize="17sp"
+                android:textColor="#A5A4A3"
+                android:layout_marginBottom="25dp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</merge>

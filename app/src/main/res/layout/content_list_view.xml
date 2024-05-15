@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dark_mode_btn_active"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/section_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="О проекте"
+                android:textSize="35sp"
+                android:textColor="#ffa500"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/content_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Зачем?"
+                android:textSize="25sp"
+                android:textColor="#ffa500"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/content_item_1.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Наш проект направлен на разработку сайта и приложения для автоматического распознавания рукописного текста с целью перевода документов в цифровой формат. Это важное и актуальное направление в контексте современных технологий и потребностей бизнеса. Основным заказчиком является начальник архива ООО РМС."
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/content_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Где применяется?"
+                android:textSize="25sp"
+                android:textColor="#ffa500"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="В бизнесе он способен ускорить процессы обработки документов, таких как контракты, счета и отчеты, что повлияет на эффективность работы офисных сотрудников и сокращает временные затраты на административные процессы."
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="В образовании проект обеспечивает доступность и удобство работы с учебными материалами, включая лекции и учебники, которые могут быть преобразованы в цифровой формат для удобства использования студентами и преподавателями."
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_2.4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="В культурной сфере проект позволяет сохранить и цифровизировать ценные исторические документы, письма, дневники и другие рукописи."
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/content_item_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Velokra"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</merge>
