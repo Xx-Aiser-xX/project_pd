@@ -34,7 +34,7 @@ class contacts : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
 
         button.setOnClickListener {
-            val url = "https://github.com/Sooty001/Pd-project/blob/main/contacts.html"
+            val url = "https://github.com/Xx-Aiser-xX/project_pd"
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)

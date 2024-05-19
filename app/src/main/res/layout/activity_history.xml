@@ -20,12 +20,14 @@
 
             <include layout="@layout/content_list_view_history" />
 
+            <include
+                layout="@layout/footer_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
+
         </LinearLayout>
 
     </ScrollView>
-    <include
-        layout="@layout/footer_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>

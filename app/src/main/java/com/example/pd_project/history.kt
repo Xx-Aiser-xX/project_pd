@@ -7,12 +7,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.activity.enableEdgeToEdge
-
+import android.content.Context
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class history : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,57 +21,56 @@ class history : AppCompatActivity() {
         setContentView(R.layout.activity_history)
 
         val linkToReg: TextView = findViewById(R.id.recognize_button_history)
-
         linkToReg.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         val linkToAuth: TextView = findViewById(R.id.contact_button_history)
-
         linkToAuth.setOnClickListener{
             val intent = Intent(this, contacts::class.java)
             startActivity(intent)
         }
 
         val button: Button = findViewById(R.id.button)
-
         button.setOnClickListener {
-            val url = "https://github.com/Sooty001/Pd-project/blob/main/contacts.html"
+            val url = "https://github.com/Xx-Aiser-xX/project_pd"
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
         }
 
-        val photoUriString = intent.getStringExtra(MainActivity.EXTRA_PHOTO_URI)
-        val uploadDate = intent.getStringExtra(MainActivity.EXTRA_UPLOAD_DATE)
-
-        if (photoUriString != null && uploadDate != null) {
-            val photoUri = Uri.parse(photoUriString)
-
-            val newEntryLayout = layoutInflater.inflate(R.layout.history_entry, null) as LinearLayout
-
-            val imageView = newEntryLayout.findViewById<ImageView>(R.id.history_image)
-            val dateTextView = newEntryLayout.findViewById<TextView>(R.id.history_date)
-            val openButton = newEntryLayout.findViewById<Button>(R.id.history_open_button)
-
-            imageView.setImageURI(photoUri)
-            dateTextView.text = "Uploaded on: $uploadDate"
-
-            openButton.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = photoUri
-                startActivity(intent)
+        for (i in 0..3) {
+            val historyImageView: ImageView = findViewById(
+                resources.getIdentifier("history_image_${i+1}", "id", packageName)
+            )
+            val historyDate: TextView = findViewById(
+                resources.getIdentifier("history_date_${i+1}", "id", packageName)
+            )
+            val savedImagePath = getSavedImagePath(i)
+            if (savedImagePath != null) {
+                val imageFile = File(savedImagePath)
+                if (imageFile.exists()) {
+                    val imageUri = Uri.fromFile(imageFile)
+                    historyImageView.setImageURI(imageUri)
+                }
             }
-
-            val contentListView: LinearLayout = findViewById(R.id.content_list_view_history)
-            contentListView.addView(newEntryLayout)
+            val timestampMillis = getSavedImageTimestamp(i)
+            if (timestampMillis != -1L) {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val dateTime = dateFormat.format(Date(timestampMillis))
+                historyDate.text = "Загружено: $dateTime"
+            }
         }
+    }
 
+    private fun getSavedImagePath(index: Int): String? {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("IMAGE_PATH_$index", null)
+    }
+
+    private fun getSavedImageTimestamp(index: Int): Long {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getLong("IMAGE_TIMESTAMP_$index", -1)
     }
 }
-//ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//    val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//    insets
-//}

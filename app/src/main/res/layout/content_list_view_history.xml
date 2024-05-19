@@ -23,6 +23,108 @@
                 android:layout_marginBottom="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"/>
+
+            <!-- 1 фото-->
+            <ImageView
+                android:id="@+id/history_image_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/history_date_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/history_open_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Открыть"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/orange_line"/>
+
+            <!-- 2 фото-->
+            <ImageView
+                android:id="@+id/history_image_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/history_date_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/history_open_button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Открыть"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/orange_line"/>
+
+
+            <!-- 3 фото-->
+            <ImageView
+                android:id="@+id/history_image_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/history_date_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/history_open_button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Открыть"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/orange_line"/>
+
+
+            <!-- 4 фото-->
+            <ImageView
+                android:id="@+id/history_image_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/history_date_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/history_open_button_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Открыть"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/orange_line"/>
+
         </LinearLayout>
 
     </RelativeLayout>
