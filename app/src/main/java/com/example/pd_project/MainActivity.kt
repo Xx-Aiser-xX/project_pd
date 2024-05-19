@@ -8,6 +8,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.provider.MediaStore
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -59,6 +62,27 @@ class MainActivity : AppCompatActivity() {
         loadButton.setOnClickListener {
             dispatchTakePictureIntent()
         }
+
+        // Получаем текст из TextView
+        val headerTitleTextView: TextView = findViewById(R.id.header_title)
+        val headerTitleText: String = headerTitleTextView.text.toString()
+
+        // Создаем SpannableString для изменения цвета
+        val spannableString = SpannableString(headerTitleText)
+
+        // Индекс, с которого начинается слово "Пером"
+        val startIndex = headerTitleText.indexOf("Пером")
+
+        // Устанавливаем красный цвет для слова "Пером"
+        spannableString.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.orange)),
+            startIndex,
+            startIndex + "Пером".length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // Устанавливаем измененный текст в TextView
+        headerTitleTextView.text = spannableString
     }
 
     private fun dispatchTakePictureIntent() {
