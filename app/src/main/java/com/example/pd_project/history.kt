@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.content.Context
+import android.view.WindowManager
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -19,7 +20,8 @@ class history : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_history)
-
+        this.supportActionBar?.hide()
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val linkToReg: TextView = findViewById(R.id.recognize_button_history)
         linkToReg.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
