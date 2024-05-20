@@ -32,11 +32,14 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
+data class UploadResponse(
+    val status: String,
+    val image_id: String
+)
 interface FileUploadService {
     @Multipart
     @POST("/upload/")
-    fun uploadImage(@Part file: MultipartBody.Part): Call<ResponseBody>
+    fun uploadImage(@Part file: MultipartBody.Part): Call<UploadResponse>
 }
 
 class MainActivity : AppCompatActivity() {
@@ -119,16 +122,26 @@ class MainActivity : AppCompatActivity() {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 val service = retrofit.create(FileUploadService::class.java)
-                service.uploadImage(body).enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                service.uploadImage(body).enqueue(object : Callback<UploadResponse> {
+                    override fun onResponse(call: Call<UploadResponse>, response: Response<UploadResponse>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(applicationContext, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                            response.body()?.let { uploadResponse ->
+                                val imageID = uploadResponse.image_id
+                                val morgan: TextView = findViewById(R.id.content_item_1_1)
+                                morgan.text = imageID
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Image uploaded successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
                         } else {
                             Toast.makeText(applicationContext, "Failed to upload image", Toast.LENGTH_SHORT).show()
                         }
                     }
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    override fun onFailure(call: Call<UploadResponse>, t: Throwable) {
                         Toast.makeText(applicationContext, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
