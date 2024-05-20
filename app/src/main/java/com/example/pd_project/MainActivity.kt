@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val linkToAuth: TextView = findViewById(R.id.contact_button)
         linkToAuth.setOnClickListener {
-            val intentC = Intent(this, Contacts::class.java)
+            val intentC = Intent(this, contacts::class.java)
             startActivity(intentC)
         }
 
         val GoHistory: TextView = findViewById(R.id.history_button)
         GoHistory.setOnClickListener {
-            val intentH = Intent(this, History::class.java)
+            val intentH = Intent(this, history::class.java)
             startActivity(intentH)
         }
 
@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         saveImagePathAndTimestamp(currentPhotoPath, System.currentTimeMillis())
+
 
     }
 

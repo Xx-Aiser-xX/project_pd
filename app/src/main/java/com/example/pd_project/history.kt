@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class History : AppCompatActivity() {
+class history : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,7 +32,7 @@ class History : AppCompatActivity() {
 
         val linkToAuth: TextView = findViewById(R.id.contact_button_history)
         linkToAuth.setOnClickListener{
-            val intent = Intent(this, Contacts::class.java)
+            val intent = Intent(this, contacts::class.java)
             startActivity(intent)
         }
 

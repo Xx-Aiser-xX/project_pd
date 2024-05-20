@@ -10,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
 
-class Contacts : AppCompatActivity() {
+class contacts : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,7 +27,7 @@ class Contacts : AppCompatActivity() {
         val goHistory: TextView = findViewById(R.id.history_button_contacts)
 
         goHistory.setOnClickListener{
-            val intent = Intent(this, History::class.java)
+            val intent = Intent(this, history::class.java)
             startActivity(intent)
         }
 
