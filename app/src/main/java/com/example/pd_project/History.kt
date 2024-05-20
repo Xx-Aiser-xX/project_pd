@@ -11,17 +11,19 @@ import android.widget.ImageView
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.WindowManager
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class history : AppCompatActivity() {
+class History : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_history)
-
+        this.supportActionBar?.hide()
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val linkToReg: TextView = findViewById(R.id.recognize_button_history)
         linkToReg.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
@@ -30,7 +32,7 @@ class history : AppCompatActivity() {
 
         val linkToAuth: TextView = findViewById(R.id.contact_button_history)
         linkToAuth.setOnClickListener{
-            val intent = Intent(this, contacts::class.java)
+            val intent = Intent(this, Contacts::class.java)
             startActivity(intent)
         }
 

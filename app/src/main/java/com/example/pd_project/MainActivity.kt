@@ -4,21 +4,33 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import android.provider.MediaStore
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.WindowManager
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.Call
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+interface FileUploadService {
+    @Multipart
+    @POST("/upload")
+    fun uploadImage(@Part file: MultipartBody.Part): Call<ResponseBody>
+}
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,13 +45,13 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val linkToAuth: TextView = findViewById(R.id.contact_button)
         linkToAuth.setOnClickListener {
-            val intentC = Intent(this, contacts::class.java)
+            val intentC = Intent(this, Contacts::class.java)
             startActivity(intentC)
         }
 
         val GoHistory: TextView = findViewById(R.id.history_button)
         GoHistory.setOnClickListener {
-            val intentH = Intent(this, history::class.java)
+            val intentH = Intent(this, History::class.java)
             startActivity(intentH)
         }
 
@@ -111,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         saveImagePathAndTimestamp(currentPhotoPath, System.currentTimeMillis())
+
     }
 
     private fun saveImagePathAndTimestamp(path: String, timestampMillis: Long) {
