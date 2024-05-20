@@ -17,10 +17,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.http.*
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -28,7 +35,7 @@ import java.util.Locale
 
 interface FileUploadService {
     @Multipart
-    @POST("/upload")
+    @POST("/upload/")
     fun uploadImage(@Part file: MultipartBody.Part): Call<ResponseBody>
 }
 
@@ -102,14 +109,36 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageUri: Uri? = data?.data
             if (imageUri != null) {
-                saveImageToAppDirectory(imageUri)
+                val imagePath: String = saveImageToAppDirectory(imageUri)
+                val file = File(imagePath)
+
+                val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+                val retrofit = Retrofit.Builder()
+                    .baseUrl("http://192.168.1.75:8000")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                val service = retrofit.create(FileUploadService::class.java)
+                service.uploadImage(body).enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(applicationContext, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(applicationContext, "Failed to upload image", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(applicationContext, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
             } else {
                 Toast.makeText(this, "Failed to retrieve image", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun saveImageToAppDirectory(imageUri: Uri) {
+    private fun saveImageToAppDirectory(imageUri: Uri): String {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val imageFile = File.createTempFile(
@@ -123,6 +152,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         saveImagePathAndTimestamp(currentPhotoPath, System.currentTimeMillis())
+        return currentPhotoPath
 
 
     }
