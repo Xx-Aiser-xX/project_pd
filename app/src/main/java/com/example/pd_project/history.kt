@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -73,4 +75,13 @@ class history : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         return sharedPreferences.getLong("IMAGE_TIMESTAMP_$index", -1)
     }
+    private fun setImageViewWithImage(imageView: ImageView, imagePath: String) {
+        val imageFile = File(imagePath)
+        if (imageFile.exists()) {
+            val bitmap = BitmapFactory.decodeFile(imagePath)
+            val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
+            imageView.setImageBitmap(scaledBitmap)
+        }
+    }
+
 }

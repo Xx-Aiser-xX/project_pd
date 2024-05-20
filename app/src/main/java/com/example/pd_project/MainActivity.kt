@@ -63,17 +63,11 @@ class MainActivity : AppCompatActivity() {
             dispatchTakePictureIntent()
         }
 
-        // Получаем текст из TextView
         val headerTitleTextView: TextView = findViewById(R.id.header_title)
         val headerTitleText: String = headerTitleTextView.text.toString()
-
-        // Создаем SpannableString для изменения цвета
         val spannableString = SpannableString(headerTitleText)
-
-        // Индекс, с которого начинается слово "Пером"
         val startIndex = headerTitleText.indexOf("Пером")
 
-        // Устанавливаем красный цвет для слова "Пером"
         spannableString.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.orange)),
             startIndex,
@@ -81,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        // Устанавливаем измененный текст в TextView
         headerTitleTextView.text = spannableString
     }
 
