@@ -1,5 +1,7 @@
 package com.example.pd_project
 
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.http.*
 import retrofit2.http.Multipart
@@ -29,9 +33,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.io.BufferedInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.net.HttpURLConnection
+
 data class UploadResponse(
     val status: String,
     val image_id: String
@@ -48,6 +58,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentPhotoPath: String
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
+    fun downloadFile(apiUrl: String, fileName: String) {
+        val client = OkHttpClient()
+
+        val request = Request.Builder().url(apiUrl).build()
+
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) {
+                throw IOException("Failed to download file: $response")
+            }
+
+            val inputStream = response.body?.byteStream()
+            val outputStream = openFileOutput(fileName, MODE_PRIVATE)
+
+            inputStream.use { input ->
+                outputStream.use { output ->
+                    input?.copyTo(output)
+                }
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -106,7 +136,24 @@ class MainActivity : AppCompatActivity() {
         val pickPhoto = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(pickPhoto, REQUEST_IMAGE_CAPTURE)
     }
+    fun saveImage(url: URL) {
+        val imageData = url.readBytes()
 
+        val resolver = this.contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "MyImage.jpg")
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+        }
+
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+        uri?.let {
+            resolver.openOutputStream(it).use { outputStream ->
+                outputStream?.write(imageData)
+            }
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -129,6 +176,9 @@ class MainActivity : AppCompatActivity() {
                                 val imageID = uploadResponse.image_id
                                 val morgan: TextView = findViewById(R.id.content_item_1_1)
                                 morgan.text = imageID
+
+
+
                                 Toast.makeText(
                                     applicationContext,
                                     "Image uploaded successfully",
@@ -136,6 +186,13 @@ class MainActivity : AppCompatActivity() {
                                 ).show()
 
                             }
+                            val img = "http://192.168.1.75:8000/media/images/JPEG_20240521_012141_8420056450793025165.jpg"
+                            val dwnld = "http://192.168.1.75:8000/download_document"
+                            val otvinta = "http://192.168.1.75:8000/media/documents/от_винта.PNG.docx"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(otvinta)
+                            startActivity(intent)
+
                         } else {
                             Toast.makeText(applicationContext, "Failed to upload image", Toast.LENGTH_SHORT).show()
                         }
